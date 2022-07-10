@@ -1,0 +1,110 @@
+/* Answer 3 */
+DESC College_A_HS;
+DESC College_A_SE;
+DESC College_A_SJ; 
+DESC College_B_HS;
+DESC College_B_SE; 
+DESC College_B_SJ; 
+
+/* Answer 4 */
+SELECT * FROM  College_A_HS LIMIT 1000;
+SELECT * FROM  College_A_SE LIMIT 1000;
+SELECT * FROM  College_A_SJ LIMIT 1000; 
+SELECT * FROM College_B_HS LIMIT 1000;
+SELECT * FROM College_B_SE LIMIT 1000;  
+SELECT * FROM College_B_SJ LIMIT 1000; 
+
+-- Answer 6 --
+CREATE VIEW  College_A_HS_V AS
+SELECT * FROM  College_A_HS WHERE RollNo IS NOT NULL AND LastUpdate IS NOT NULL AND Name IS NOT NULL AND FatherName IS NOT NULL AND MotherName IS NOT NULL AND Batch IS NOT NULL AND Degree IS NOT NULL AND PresentStatus IS NOT NULL AND HSDegree IS NOT NULL AND EntranceExam IS NOT NULL AND Institute IS NOT NULL AND  Location IS NOT NULL;
+SELECT * FROM  College_A_HS_V;
+
+-- Answer 7 --
+CREATE VIEW  College_A_SE_V AS
+SELECT * FROM  College_A_SE  WHERE RollNo IS NOT NULL AND LastUpdate IS NOT NULL AND Name IS NOT NULL AND FatherName IS NOT NULL AND MotherName IS NOT NULL AND Batch IS NOT NULL AND Degree IS NOT NULL AND PresentStatus IS NOT NULL AND Organization IS NOT NULL AND Location IS NOT NULL;
+SELECT * FROM  College_A_SE_V;
+
+-- Answer 8 --
+CREATE VIEW  College_A_SJ_V AS
+SELECT * FROM  College_A_SJ  WHERE RollNo IS NOT NULL AND LastUpdate IS NOT NULL AND Name IS NOT NULL AND FatherName IS NOT NULL AND MotherName IS NOT NULL AND Batch IS NOT NULL AND Degree IS NOT NULL AND PresentStatus IS NOT NULL AND Organization IS NOT NULL AND Designation IS NOT NULL;
+SELECT * FROM  College_A_SJ_V;
+
+-- Answer 9 --
+CREATE VIEW  College_B_HS_V AS
+SELECT * FROM  College_B_HS WHERE RollNo IS NOT NULL AND LastUpdate IS NOT NULL AND Name IS NOT NULL AND FatherName IS NOT NULL AND MotherName IS NOT NULL AND Branch IS NOT NULL AND Batch IS NOT NULL AND Degree IS NOT NULL AND PresentStatus IS NOT NULL AND HSDegree IS NOT NULL AND EntranceExam IS NOT NULL AND Institute IS NOT NULL AND  Location IS NOT NULL;
+SELECT * FROM  College_B_HS_V;
+
+-- Answer 10 --
+CREATE VIEW  College_B_SE_V AS
+SELECT * FROM  College_B_SE  WHERE RollNo IS NOT NULL AND LastUpdate IS NOT NULL AND Name IS NOT NULL AND FatherName IS NOT NULL AND MotherName IS NOT NULL AND Batch IS NOT NULL AND Degree IS NOT NULL AND PresentStatus IS NOT NULL AND Organization IS NOT NULL AND Location IS NOT NULL;
+SELECT * FROM  College_B_SE_V;
+
+-- Answer 11 --
+CREATE VIEW  College_B_SJ_V AS
+SELECT * FROM  College_B_SJ  WHERE RollNo IS NOT NULL AND LastUpdate IS NOT NULL AND Name IS NOT NULL AND FatherName IS NOT NULL AND MotherName IS NOT NULL AND Batch IS NOT NULL AND Degree IS NOT NULL AND PresentStatus IS NOT NULL AND Organization IS NOT NULL AND Designation IS NOT NULL;
+SELECT * FROM  College_B_SJ_V;
+
+-- Answer 12 --
+SELECT LOWER(Name),LOWER(FatherName),LOWER(MotherName) FROM College_A_HS_V ;
+SELECT LOWER(Name),LOWER(FatherName),LOWER(MotherName) FROM College_A_SE_V ;
+SELECT LOWER(Name),LOWER(FatherName),LOWER(MotherName) FROM College_A_SJ_V ;
+SELECT LOWER(Name),LOWER(FatherName),LOWER(MotherName) FROM College_B_HS_V ;
+SELECT LOWER(Name),LOWER(FatherName),LOWER(MotherName) FROM College_B_SE_V ;
+SELECT LOWER(Name),LOWER(FatherName),LOWER(MotherName) FROM College_B_SJ_V ;
+
+-- Answer 14 
+USE alumni;
+DELIMITER  $$  
+CREATE PROCEDURE get_name
+(
+INOUT  sname VARCHAR(100)
+)
+BEGIN 
+DECLARE c CURSOR  FOR SELECT Name FROM College_A_HS_V;
+FETCH c INTO sname;     
+        
+   
+open c;
+end $$
+
+-- ANSWER 15 --
+
+USE alumni;
+DELIMITER  $$  
+CREATE PROCEDURE get_name1
+(
+INOUT  sname VARCHAR(100)
+)
+BEGIN 
+DECLARE c CURSOR  FOR SELECT Name FROM College_B_HS_V;
+FETCH c INTO sname;     
+        
+   
+open c;
+end $$
+
+-- ANSWER 16 --
+ 
+SELECT COUNT(*) FROM College_A_HS_V;
+SELECT COUNT(*) FROM College_A_SE_V;
+SELECT COUNT(*) FROM College_A_SJ_V;
+
+-- We got the values 1155,4006 and 4006 respectively TOTAL= 9167 --
+
+SELECT (1155/9167)*100 AS HIGHER_STUDIES_STUDENTS_PERCENT;
+SELECT (4006/9167)*100 AS SELF_EMPLOYED_STUDENTS_PERCENT;
+SELECT (4006/9167)*100 AS SERVICE_JOB_STUDENTS_PERCENT;
+
+/* Similarly for college b students */
+
+SELECT COUNT(*) FROM College_B_HS_V
+SELECT COUNT(*) FROM College_B_SE_V;
+SELECT COUNT(*) FROM College_B_SJ_V;
+
+/*THE VALUES ARE 199,201,1859 respectively*/
+
+SELECT (199/2259)*100 AS HIGHER_STUDIES_STUDENTS_PERCENT;
+SELECT (201/2259)*100 AS SELF_EMPLOYED_STUDENTS_PERCENT;
+SELECT (1859/2259)*100 AS SERVICE_JOB_STUDENTS_PERCENT;
+
+
